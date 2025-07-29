@@ -5,6 +5,9 @@ import { bookController } from '@/controllers/book-controller';
 
 const bookRouter = Router();
 
-bookRouter.post('/', schemaValidation(bookSchema), bookController.createBook);
+bookRouter
+  .post('/', schemaValidation(bookSchema), bookController.createBook)
+  .get('/', bookController.getBooks)
+  .get('/:id', bookController.getBookById);
 
 export default bookRouter;

@@ -11,10 +11,17 @@ export function errorHandling(
   res: Response,
   _next: NextFunction
 ) {
-
-  if (error.name == 'futureDateError') {
+  if (error.name === 'futureDateError') {
     return res.status(httpStatus.EXPECTATION_FAILED).send(error.message);
   }
 
-  return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
+  if (error.name === 'missingIdError') {
+    return res.status(httpStatus.BAD_REQUEST).send(error.message);
+  }
+
+  if (error.name === 'bookNotFoundError') {
+    return res.status(httpStatus.NOT_FOUND).send(error.message);
+  }
+
+  return res.status(httpStatus.INTERNAL_SERVER_ERROR).send(error.message);
 }

@@ -11,6 +11,14 @@ export class DefaultBookService implements BookService {
     const book = BookFactory.create(bookData);
     return await this.repository.post(book);
   }
+
+  async getBooks(): Promise<Book[]> {
+    return await this.repository.findAll();
+  }
+
+  async getBookById(id: string): Promise<Book> {
+    return await this.repository.findById(id);
+  }
 }  
 
 export const bookService = new DefaultBookService();
