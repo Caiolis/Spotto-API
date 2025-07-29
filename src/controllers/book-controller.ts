@@ -26,6 +26,23 @@ export class BookController {
     const book = await this.service.getBookById(id);
     return res.status(httpStatus.OK).send(book);
   }
+
+  updateBook = async (req: Request, res: Response) => {
+    const id = req.params['id'];
+    if (!id) throw missingIdError();
+
+    const { title, author, publishedDate, genre } = req.body as Book;
+    const book = await this.service.updateBook(id, { title, author, publishedDate, genre });
+    return res.status(httpStatus.OK).send(book);
+  }
+
+  patchBook = async (req: Request, res: Response) => {
+    const id = req.params['id'];
+    if (!id) throw missingIdError();
+
+    const book = await this.service.patchBook(id, req.body);
+    return res.status(httpStatus.OK).send(book);
+  }
 }
 
 export const bookController = new BookController();

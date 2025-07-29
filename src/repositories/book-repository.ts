@@ -18,6 +18,25 @@ export class MemoryBookRepository implements BookRepository {
     if (!book) throw bookNotFoundError();
     return book;
   }
+
+  async update(id: string, bookData: Omit<Book, 'id'>): Promise<Book> {
+    const index = booksDatabase.findIndex(book => book.id === id);
+    if (index === -1) throw bookNotFoundError();
+
+    const updatedBook = { ...bookData, id } as Book;
+    booksDatabase[index] = updatedBook;
+    return updatedBook;
+  }
+
+  async patch(id: string, bookData: Partial<Omit<Book, 'id'>>): Promise<Book> {
+    const index = booksDatabase.findIndex(book => book.id === id);
+    if (index === -1) throw bookNotFoundError();
+
+    const currentBook = { ...booksDatabase[index] };
+    const updatedBook = { ...currentBook, ...bookData } as Book;
+    booksDatabase[index] = updatedBook;
+    return updatedBook;
+  }
 }
 
 export const bookRepository = new MemoryBookRepository();
