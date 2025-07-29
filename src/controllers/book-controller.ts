@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import Book from '@/models/book';
 import httpStatus from 'http-status';
-import { BookService, bookService } from '@/services/book-service';
+import { BookService } from '@/interfaces/BookService';
+import { bookService } from '@/services/book-service';
 
 export class BookController {
   constructor(private service: BookService = bookService) {}

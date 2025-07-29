@@ -1,24 +1,16 @@
-import { futureDateError } from "@/errors/future-date-error";
-import { BookRepository, bookRepository } from '@/repositories/book-repository';
-import { generateId } from '@/utils/id-generator';
+import { bookRepository } from '@/repositories/book-repository';
+import { BookRepository } from '@/interfaces/BookRepository';
+import { BookService } from '@/interfaces/BookService';
+import { BookFactory, CreateBookDTO } from '@/factories/book-factory';
 import Book from "@/models/book";
 
-export class BookService {
+export class DefaultBookService implements BookService {
   constructor(private repository: BookRepository = bookRepository) {}
 
-  async createBook(bookData: Omit<Book, 'id'>) {
-    if(bookData.publishedDate && new Date(bookData.publishedDate) > new Date()) throw futureDateError();
-
-    const book = new Book(
-      generateId(),
-      bookData.title,
-      bookData.author,
-      bookData.publishedDate,
-      bookData.genre
-    );
-
+  async createBook(bookData: CreateBookDTO): Promise<Book> {
+    const book = BookFactory.create(bookData);
     return await this.repository.post(book);
   }
 }  
 
-export const bookService = new BookService();
+export const bookService = new DefaultBookService();
