@@ -6,6 +6,6 @@ const bookPatchSchema = Joi.object<Partial<Book>>({
   author: Joi.string(),
   publishedDate: Joi.date(),
   genre: Joi.string()
-}).min(1); // At least one field must be provided
+}).min(1);
 
 export default bookPatchSchema; 

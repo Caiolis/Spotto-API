@@ -37,6 +37,13 @@ export class MemoryBookRepository implements BookRepository {
     booksDatabase[index] = updatedBook;
     return updatedBook;
   }
+
+  async delete(id: string): Promise<void> {
+    const index = booksDatabase.findIndex(book => book.id === id);
+    if (index === -1) throw bookNotFoundError();
+    
+    booksDatabase.splice(index, 1);
+  }
 }
 
 export const bookRepository = new MemoryBookRepository();

@@ -61,6 +61,11 @@ export class DefaultBookService implements BookService {
     
     return await this.repository.patch(id, bookData);
   }
+
+  async deleteBook(id: string): Promise<void> {
+    await this.repository.findById(id);
+    await this.repository.delete(id);
+  }
 }
 
 export const bookService = new DefaultBookService();

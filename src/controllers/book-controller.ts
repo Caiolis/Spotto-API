@@ -43,6 +43,16 @@ export class BookController {
     const book = await this.service.patchBook(id, req.body);
     return res.status(httpStatus.OK).send(book);
   }
+
+  deleteBook = async (req: Request, res: Response) => {
+    const id = req.params['id'];
+    if (!id) throw missingIdError();
+
+    await this.service.deleteBook(id);
+    return res.status(httpStatus.OK).send({
+      message: 'Book successfully deleted'
+    });
+  }
 }
 
 export const bookController = new BookController();

@@ -11,6 +11,7 @@ bookRouter
   .get('/', bookController.getBooks)
   .get('/:id', bookController.getBookById)
   .put('/:id', schemaValidation(bookSchema), bookController.updateBook)
-  .patch('/:id', schemaValidation(bookPatchSchema), bookController.patchBook);
+  .patch('/:id', schemaValidation(bookPatchSchema), bookController.patchBook)
+  .delete('/:id', bookController.deleteBook);
 
 export default bookRouter;
