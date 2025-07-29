@@ -3,15 +3,18 @@ import 'express-async-errors';
 import httpStatus from 'http-status';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import bookRouter from './routes/book-routes';
 
 const app = express();
 
-app.use(json());
-app.use(cors());
+app
+  .use(json())
+  .use(cors())
+  .get('/health', (_req: Request, res: Response) => res.status(httpStatus.OK).send("I'm Ok!"))
+  .use('/books', bookRouter);
+
 dotenv.config();
 
-app.get('/health', (_req: Request, res: Response) => {
-  return res.status(httpStatus.OK).send("I'm Ok!");
-});
+
 
 export default app; 

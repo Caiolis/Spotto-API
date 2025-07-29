@@ -1,5 +1,5 @@
 import Book from '@/models/book';
 
-const books: Book[] = [];
+const booksDatabase: Book[] = [];
 
-export default books;
+export default booksDatabase;

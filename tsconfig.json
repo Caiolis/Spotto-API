@@ -25,7 +25,8 @@
     "noUncheckedIndexedAccess": true,
     "baseUrl": "./src",
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@errors": ["./src/errors"]
     }
   },
   "include": ["src/**/*"],
