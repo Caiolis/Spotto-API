@@ -6,18 +6,24 @@ export type PartialBookDTO = Partial<Omit<Book, 'id'>>;
 
 export class TestBookFactory {
   static createValidBook(overrides: Partial<CreateBookDTO> = {}): CreateBookDTO {
+    const pastDate = faker.date.past();
+    pastDate.setHours(0, 0, 0, 0);
+
     return {
       title: faker.lorem.words(3),
       author: faker.person.fullName(),
-      publishedDate: faker.date.past(),
+      publishedDate: pastDate,
       genre: faker.word.sample(),
       ...overrides
     };
   }
 
   static createFutureBook(overrides: Partial<CreateBookDTO> = {}): CreateBookDTO {
+    const futureDate = faker.date.future();
+    futureDate.setHours(0, 0, 0, 0);
+
     return this.createValidBook({
-      publishedDate: faker.date.future(),
+      publishedDate: futureDate,
       ...overrides
     });
   }
@@ -31,8 +37,11 @@ export class TestBookFactory {
         return { title: faker.lorem.words(3) };
       case 'author':
         return { author: faker.person.fullName() };
-      case 'publishedDate':
-        return { publishedDate: faker.date.past() };
+      case 'publishedDate': {
+        const pastDate = faker.date.past();
+        pastDate.setHours(0, 0, 0, 0);
+        return { publishedDate: pastDate };
+      }
       case 'genre':
         return { genre: faker.word.sample() };
       default:
